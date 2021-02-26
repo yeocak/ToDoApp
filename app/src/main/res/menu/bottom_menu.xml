@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/currentFragment"
+        android:icon="@drawable/ic_menu_check"
+        android:title="Current To-Dos" />
+
+    <item
+        android:id="@+id/listsFragment"
+        android:icon="@drawable/ic_menu_list"
+        android:title="All Lists" />
+
+    <item
+        android:id="@+id/settingsFragment"
+        android:icon="@drawable/ic_menu_settings"
+        android:title="Settings" />
+
+    <item
+        android:id="@+id/blank"
+        android:enabled="false"
+        android:title="" />
+
+</menu>
