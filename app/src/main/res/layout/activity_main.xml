@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#3C3832"
+    android:background="@color/customDark"
     tools:context=".activities.MainActivity">
 
     <fragment
         android:id="@+id/frMenu"
         android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:defaultNavHost="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            app:backgroundTint="#FF8C9D75"
+            app:backgroundTint="@color/customGreen"
             app:contentInsetLeft="10dp"
             app:contentInsetStart="10dp"
             app:fabAlignmentMode="end"
@@ -55,11 +55,10 @@
             android:id="@+id/bottomMenuAdd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#8C9D75"
 
-            android:src="@drawable/ic_menu_list"
+            android:backgroundTint="@color/customGreen"
 
-            android:backgroundTint="#8C9D75"
+            android:src="@drawable/ic_menu_add"
             app:borderWidth="0dp"
             app:layout_anchor="@id/bottomMenuBar"
             app:maxImageSize="45dp" />
