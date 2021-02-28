@@ -33,6 +33,7 @@
             android:layout_gravity="center"
             android:layout_weight="10"
             android:backgroundTint="#BC4040"
-            android:text="Button" />
+            android:text="Button"
+            android:textAllCaps="false" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

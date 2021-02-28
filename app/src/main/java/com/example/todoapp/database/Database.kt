@@ -1,8 +1,12 @@
 package com.example.todoapp.database
 
 object Database {
-    val todoLists = mutableListOf<ToDoList>()
-    val currentList = mutableListOf<ToDo>()
+    val geciciList = ToDoList("İlk Liste",1, mutableListOf())
 
-    val autoDelete: Boolean = false
+    val todoLists = mutableListOf<ToDoList>(geciciList)
+    var position = 0
+
+    var autoDelete: Boolean = false
+
+    fun getCurrentList(): ToDoList = todoLists[position]
 }

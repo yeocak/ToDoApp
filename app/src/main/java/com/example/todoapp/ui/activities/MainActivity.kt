@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
         // Setting add button
         binding.bottomMenuAdd.setOnClickListener {
-            //Checking for is it already on
+            // Checking for is it already on
             if(navController.currentDestination?.label.toString() != "fragment_add"){
                 navController.navigate(R.id.action_global_addFragment)
 
