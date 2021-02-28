@@ -1,4 +1,4 @@
-package com.example.todoapp.fragments
+package com.example.todoapp.ui.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,19 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.todoapp.R
 
-class AddFragment : Fragment() {
+class CurrentFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-
-
-
-        return inflater.inflate(R.layout.fragment_add, container, false)
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_current, container, false)
     }
 }

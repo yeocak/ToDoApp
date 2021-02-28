@@ -1,8 +1,7 @@
-package com.example.todoapp.activities
+package com.example.todoapp.ui.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.todoapp.R
 import com.example.todoapp.databinding.ActivityShowBinding
 
 class ShowActivity : AppCompatActivity() {

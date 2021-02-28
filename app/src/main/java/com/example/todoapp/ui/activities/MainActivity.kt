@@ -1,8 +1,7 @@
-package com.example.todoapp.activities
+package com.example.todoapp.ui.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.todoapp.R
@@ -21,8 +20,9 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.frMenu)
         binding.bottomMenuView.setupWithNavController(navController)
 
+        // Setting add button
         binding.bottomMenuAdd.setOnClickListener {
-            //Checking for is already on
+            //Checking for is it already on
             if(navController.currentDestination?.label.toString() != "fragment_add"){
                 navController.navigate(R.id.action_global_addFragment)
 

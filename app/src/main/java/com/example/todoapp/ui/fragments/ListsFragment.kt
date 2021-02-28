@@ -1,11 +1,10 @@
-package com.example.todoapp.fragments
+package com.example.todoapp.ui.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentListsBinding
 
 class ListsFragment : Fragment() {
