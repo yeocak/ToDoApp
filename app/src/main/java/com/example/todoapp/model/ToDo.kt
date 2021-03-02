@@ -1,4 +1,4 @@
-package com.example.todoapp.database
+package com.example.todoapp.model
 
 data class ToDo(
     var title: String,

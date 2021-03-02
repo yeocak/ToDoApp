@@ -1,4 +1,4 @@
-package com.example.todoapp.ui.fragments.ListsFragment
+package com.example.todoapp.ui.mainmenu.todolists
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todoapp.databinding.FragmentListsBinding
-import com.example.todoapp.ui.activities.MainActivity
-import com.example.todoapp.ui.fragments.AddFragment.AddFragment
+import com.example.todoapp.ui.mainmenu.MainActivity
+import com.example.todoapp.ui.mainmenu.addtodo.AddFragment
 
 class ListsFragment : Fragment() {
 

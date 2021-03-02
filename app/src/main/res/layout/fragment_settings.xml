@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.SettingsFragment">
+    tools:context=".ui.mainmenu.settings.SettingsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -18,15 +18,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/swSettingsAutoDelete"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:text="Auto Delete Completed Items"
-                android:textColor="@color/customWhite"
-                android:textSize="20sp" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnSettingsGithub"

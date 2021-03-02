@@ -9,8 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ToDoApp">
-        <activity android:name="com.example.todoapp.ui.activities.ShowActivity.ShowActivity"></activity>
-        <activity android:name="com.example.todoapp.ui.activities.MainActivity">
+        <activity android:name="com.example.todoapp.ui.showtodo.ShowActivity"></activity>
+        <activity android:name="com.example.todoapp.ui.mainmenu.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

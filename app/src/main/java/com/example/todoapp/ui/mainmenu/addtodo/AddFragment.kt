@@ -1,21 +1,19 @@
-package com.example.todoapp.ui.fragments.AddFragment
+package com.example.todoapp.ui.mainmenu.addtodo
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.GONE
 import android.view.View.INVISIBLE
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation.findNavController
-import androidx.navigation.findNavController
 import com.example.todoapp.R
-import com.example.todoapp.database.Database
-import com.example.todoapp.database.ToDo
-import com.example.todoapp.database.ToDoList
+import com.example.todoapp.model.Database
+import com.example.todoapp.model.ToDo
+import com.example.todoapp.model.ToDoList
 import com.example.todoapp.databinding.FragmentAddBinding
-import com.example.todoapp.ui.activities.MainActivity
+import com.example.todoapp.ui.mainmenu.MainActivity
 
 class AddFragment : Fragment() {
 
@@ -36,9 +34,9 @@ class AddFragment : Fragment() {
 
         binding.btnAddSave.setOnClickListener {
             if (checkFields()) {
-                if(isInCurrent){
+                if (isInCurrent) {
                     addToDo()
-                }else{
+                } else {
                     addList()
                 }
                 clearAreas()
@@ -46,7 +44,7 @@ class AddFragment : Fragment() {
         }
 
         binding.btnAddCancel.setOnClickListener {
-            findNavController((activity as MainActivity),R.id.frMenu).popBackStack()
+            findNavController((activity as MainActivity), R.id.frMenu).popBackStack()
         }
 
         return binding.root
@@ -85,10 +83,15 @@ class AddFragment : Fragment() {
         Database.todoLists[Database.position].list.add(newToDo)
     }
 
-    private fun addList(){
+    private fun addList() {
+        val newId = if (Database.todoLists.size > 0) {
+            Database.todoLists[Database.todoLists.lastIndex].id + 1
+        } else {
+            0
+        }
         val newList = ToDoList(
             binding.etAddTitle.text.toString(),
-            Database.todoLists[Database.todoLists.lastIndex].id+1,
+            newId,
         )
         Database.todoLists.add(newList)
     }

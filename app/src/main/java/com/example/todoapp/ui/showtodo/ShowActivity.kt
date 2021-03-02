@@ -1,9 +1,8 @@
-package com.example.todoapp.ui.activities.ShowActivity
+package com.example.todoapp.ui.showtodo
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import com.example.todoapp.database.Database
+import com.example.todoapp.model.Database
 import com.example.todoapp.databinding.ActivityShowBinding
 
 class ShowActivity : AppCompatActivity() {
@@ -18,13 +17,8 @@ class ShowActivity : AppCompatActivity() {
 
         currentPosition = intent.getIntExtra("current", -1)
 
-        val fragmentList = mutableListOf<Fragment>()
-        for(a in 1..Database.getCurrentList().list.size){
-            fragmentList.add(ShowFragment())
-        }
-
         val adapter = ShowAdapter(
-            fragmentList,
+            Database.getCurrentList().list.size,
             supportFragmentManager,
             lifecycle
         )

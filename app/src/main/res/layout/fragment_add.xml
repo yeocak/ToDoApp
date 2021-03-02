@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.AddFragment.AddFragment">
+    tools:context=".ui.mainmenu.addtodo.AddFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -100,7 +100,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/customRed"
-            android:text="CANCEL"
+            android:text="GO BACK"
             android:textColor="@color/customWhite"
             app:layout_constraintBottom_toBottomOf="@+id/btnAddSave"
             app:layout_constraintEnd_toStartOf="@+id/btnAddSave"

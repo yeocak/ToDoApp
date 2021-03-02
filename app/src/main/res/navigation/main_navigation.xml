@@ -7,22 +7,22 @@
 
     <fragment
         android:id="@+id/addFragment"
-        android:name="com.example.todoapp.ui.fragments.AddFragment.AddFragment"
+        android:name="com.example.todoapp.ui.mainmenu.addtodo.AddFragment"
         android:label="fragment_add"
         tools:layout="@layout/fragment_add" />
     <fragment
         android:id="@+id/currentFragment"
-        android:name="com.example.todoapp.ui.fragments.CurrentFragment.CurrentFragment"
+        android:name="com.example.todoapp.ui.mainmenu.currentlist.CurrentFragment"
         android:label="fragment_current"
         tools:layout="@layout/fragment_current" />
     <fragment
         android:id="@+id/listsFragment"
-        android:name="com.example.todoapp.ui.fragments.ListsFragment.ListsFragment"
+        android:name="com.example.todoapp.ui.mainmenu.todolists.ListsFragment"
         android:label="fragment_lists"
         tools:layout="@layout/fragment_lists" />
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.example.todoapp.ui.fragments.SettingsFragment"
+        android:name="com.example.todoapp.ui.mainmenu.settings.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
     <action

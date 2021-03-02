@@ -1,17 +1,15 @@
-package com.example.todoapp.ui.fragments.CurrentFragment
+package com.example.todoapp.ui.mainmenu.currentlist
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.todoapp.R
-import com.example.todoapp.database.Database
+import com.example.todoapp.model.Database
 import com.example.todoapp.databinding.FragmentCurrentBinding
-import com.example.todoapp.ui.activities.MainActivity
-import com.example.todoapp.ui.fragments.AddFragment.AddFragment
+import com.example.todoapp.ui.mainmenu.MainActivity
+import com.example.todoapp.ui.mainmenu.addtodo.AddFragment
 
 class CurrentFragment : Fragment() {
 
@@ -30,18 +28,30 @@ class CurrentFragment : Fragment() {
     ): View? {
         binding = FragmentCurrentBinding.inflate(layoutInflater)
 
-        // Settings adapter for To-Dos
-        adapter = CurrentAdapter(activity as MainActivity)
-        binding.rvCurrent.adapter = adapter
-        binding.rvCurrent.layoutManager = LinearLayoutManager(activity as MainActivity)
+        // Setting recyclerview adapter for To-Dos
+        setRV()
 
         return binding.root
     }
 
+    private fun setRV(){
+        if(Database.todoLists.size > 0){
+            adapter = CurrentAdapter(activity as MainActivity)
+            binding.rvCurrent.adapter = adapter
+            binding.rvCurrent.layoutManager = LinearLayoutManager(activity as MainActivity)
+        }
+    }
+
     override fun onResume() {
         super.onResume()
-        // Refresh for changes
-        adapter.notifyDataSetChanged()
         AddFragment.isInCurrent = true
+
+        // Refresh for changes
+        if(Database.todoLists.size > 0){
+            adapter.notifyDataSetChanged()
+        }
+        else{
+            AddFragment.isInCurrent = false
+        }
     }
 }

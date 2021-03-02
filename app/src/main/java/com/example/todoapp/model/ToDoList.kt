@@ -1,4 +1,4 @@
-package com.example.todoapp.database
+package com.example.todoapp.model
 
 data class ToDoList(
         val name: String,

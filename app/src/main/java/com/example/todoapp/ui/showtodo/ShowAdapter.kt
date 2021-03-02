@@ -1,4 +1,4 @@
-package com.example.todoapp.ui.activities.ShowActivity
+package com.example.todoapp.ui.showtodo
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -6,18 +6,18 @@ import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
 class ShowAdapter(
-    private val currentFragmentList: MutableList<Fragment>,
+    private val fragmentSize: Int,
     fm: FragmentManager,
     lc: Lifecycle
 ) : FragmentStateAdapter(fm, lc) {
 
     override fun getItemCount(): Int {
-        return currentFragmentList.size
+        return fragmentSize
     }
 
     override fun createFragment(position: Int): Fragment {
         currentShowPosition = position
-        return currentFragmentList[position]
+        return ShowFragment()
     }
 
     companion object{
