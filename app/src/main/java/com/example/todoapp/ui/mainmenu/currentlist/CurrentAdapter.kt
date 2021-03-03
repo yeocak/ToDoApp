@@ -2,6 +2,7 @@ package com.example.todoapp.ui.mainmenu.currentlist
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.INVISIBLE
@@ -9,9 +10,13 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.R
-import com.example.todoapp.model.Database
+import com.example.todoapp.database.ToDoDatabase
+import com.example.todoapp.utils.Database
 import com.example.todoapp.databinding.SingleTodoBlockBinding
+import com.example.todoapp.model.ToDo
 import com.example.todoapp.ui.showtodo.ShowActivity
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class CurrentAdapter(
     val context: Context
@@ -33,7 +38,8 @@ class CurrentAdapter(
     override fun onBindViewHolder(holder: VHCurrentList, position: Int) {
 
         if (position != Database.todoLists[Database.position].list.size) {
-            val current = Database.todoLists[Database.position].list[position]
+            val current = Database.getCurrentList().list[position]
+            Log.d("Testing", current.uid.toString())
 
             holder.binding.apply {
                 layoutCurrent.visibility = VISIBLE
@@ -43,6 +49,22 @@ class CurrentAdapter(
 
                 cbSingleTodoChecked.setOnCheckedChangeListener { _, isChecked ->
                     Database.todoLists[Database.position].list[position].checked = isChecked
+
+                    GlobalScope.launch {
+                        val instance = ToDoDatabase.getInstance(context)
+                        val updateToDo = ToDo(
+                            current.title,
+                            current.comment,
+                            current.listId,
+                            current.uid,
+                            isChecked
+                        )
+
+                        Log.d("Testing",updateToDo.toString())
+
+                        instance.toDoDao.updateToDo(updateToDo)
+                    }
+
                 }
 
                 layoutCurrent.setOnClickListener {

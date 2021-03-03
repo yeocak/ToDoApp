@@ -22,7 +22,7 @@ class ListsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentListsBinding.inflate(layoutInflater)
 
         setRV()
@@ -31,7 +31,7 @@ class ListsFragment : Fragment() {
     }
 
     private fun setRV(){
-        val adapter = ListsAdapter()
+        val adapter = ListsAdapter(activity as MainActivity)
 
         binding.rvLists.adapter = adapter
         binding.rvLists.layoutManager = LinearLayoutManager(activity as MainActivity)

@@ -9,11 +9,14 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation.findNavController
 import com.example.todoapp.R
-import com.example.todoapp.model.Database
+import com.example.todoapp.database.ToDoDatabase
+import com.example.todoapp.utils.Database
 import com.example.todoapp.model.ToDo
 import com.example.todoapp.model.ToDoList
 import com.example.todoapp.databinding.FragmentAddBinding
 import com.example.todoapp.ui.mainmenu.MainActivity
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class AddFragment : Fragment() {
 
@@ -27,7 +30,7 @@ class AddFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentAddBinding.inflate(layoutInflater)
 
         setFields()
@@ -75,17 +78,30 @@ class AddFragment : Fragment() {
     }
 
     private fun addToDo() {
+        var uid: Long
+
         val newToDo = ToDo(
             binding.etAddTitle.text.toString(),
-            binding.etAddExp.text.toString()
+            binding.etAddExp.text.toString(),
+            Database.getCurrentList().uid
         )
 
-        Database.todoLists[Database.position].list.add(newToDo)
+        GlobalScope.launch {
+            // Adding to room database
+
+            val dao = ToDoDatabase.getInstance((activity as MainActivity).application).toDoDao
+
+            uid = dao.addToDo(newToDo)
+
+            newToDo.uid = uid
+
+            Database.todoLists[Database.position].list.add(newToDo)
+        }
     }
 
     private fun addList() {
         val newId = if (Database.todoLists.size > 0) {
-            Database.todoLists[Database.todoLists.lastIndex].id + 1
+            Database.todoLists[Database.todoLists.lastIndex].uid + 1
         } else {
             0
         }
@@ -93,6 +109,14 @@ class AddFragment : Fragment() {
             binding.etAddTitle.text.toString(),
             newId,
         )
+
+        GlobalScope.launch {
+            // Adding to room database
+
+            val dao = ToDoDatabase.getInstance(activity as MainActivity).toDoListDao
+            dao.insertList(newList)
+        }
+
         Database.todoLists.add(newList)
     }
 

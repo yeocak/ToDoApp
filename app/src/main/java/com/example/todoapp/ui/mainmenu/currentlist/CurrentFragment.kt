@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.todoapp.model.Database
+import com.example.todoapp.utils.Database
 import com.example.todoapp.databinding.FragmentCurrentBinding
 import com.example.todoapp.ui.mainmenu.MainActivity
 import com.example.todoapp.ui.mainmenu.addtodo.AddFragment
@@ -25,7 +25,7 @@ class CurrentFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentCurrentBinding.inflate(layoutInflater)
 
         // Setting recyclerview adapter for To-Dos

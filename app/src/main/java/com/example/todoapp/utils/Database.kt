@@ -1,4 +1,6 @@
-package com.example.todoapp.model
+package com.example.todoapp.utils
+
+import com.example.todoapp.model.ToDoList
 
 object Database {
     val todoLists = mutableListOf<ToDoList>()

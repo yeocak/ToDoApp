@@ -8,17 +8,18 @@ import android.view.View
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.todoapp.model.Database
-import com.example.todoapp.model.ToDo
 import com.example.todoapp.databinding.FragmentShowBinding
+import com.example.todoapp.utils.Database
+import com.example.todoapp.model.ToDo
 import com.example.todoapp.ui.mainmenu.MainActivity
 
 class ShowFragment : Fragment() {
 
     private lateinit var binding: FragmentShowBinding
-    private lateinit var viewModel : ShowFragmentViewModel
+    private lateinit var viewModel: ShowFragmentViewModel
 
     private var position: Int = -1
     private lateinit var currentToDo: ToDo
@@ -27,20 +28,21 @@ class ShowFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         // Setting viewmodel
-        viewModel = ViewModelProvider(activity as ShowActivity).get(ShowFragmentViewModel::class.java)
+        viewModel =
+            ViewModelProvider(activity as ShowActivity).get(ShowFragmentViewModel::class.java)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentShowBinding.inflate(layoutInflater)
 
         // Visibility of cancel/save button
         viewModel.changed.observe((activity as ShowActivity), {
-            if(it){
+            if (it) {
                 binding.layoutChanges.visibility = VISIBLE
-            }else{
+            } else {
                 binding.layoutChanges.visibility = INVISIBLE
             }
         })
@@ -68,7 +70,9 @@ class ShowFragment : Fragment() {
                 binding.etShowTitle.text.toString(),
                 binding.etShowExp.text.toString(),
                 binding.cbShowCheck.isChecked,
-                position)
+                position,
+                activity as ShowActivity
+            )
 
             viewModel.resetChanges()
         }
@@ -80,8 +84,8 @@ class ShowFragment : Fragment() {
                 .setMessage("You really want delete this to do?")
 
             alertBuilder.apply {
-                setPositiveButton("Delete"){ _, _ ->
-                    viewModel.deleteDatabaseToDo(position)
+                setPositiveButton("Delete") { _, _ ->
+                    viewModel.deleteDatabaseToDo(position, (activity as ShowActivity))
 
                     val intent = Intent((activity as ShowActivity), MainActivity::class.java)
                     (activity as ShowActivity).apply {
@@ -89,7 +93,7 @@ class ShowFragment : Fragment() {
                         finishAffinity()
                     }
                 }
-                setNegativeButton("Cancel"){_,_->}
+                setNegativeButton("Cancel") { _, _ -> }
                 show()
             }
         }

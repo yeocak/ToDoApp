@@ -1,7 +1,17 @@
 package com.example.todoapp.model
 
+import androidx.room.Entity
+import androidx.room.Ignore
+import androidx.room.PrimaryKey
+
+@Entity
 data class ToDoList(
-        val name: String,
-        val id: Int,
-        val list: MutableList<ToDo> = mutableListOf()
-)
+
+        var name: String,
+
+        @PrimaryKey
+        var uid: Int,
+) {
+        @Ignore
+        var list: MutableList<ToDo> = mutableListOf()
+}

@@ -28,4 +28,7 @@
     <action
         android:id="@+id/action_global_addFragment"
         app:destination="@id/addFragment" />
+    <action
+        android:id="@+id/action_global_currentFragment"
+        app:destination="@id/currentFragment" />
 </navigation>

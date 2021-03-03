@@ -2,7 +2,7 @@ package com.example.todoapp.ui.showtodo
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.todoapp.model.Database
+import com.example.todoapp.utils.Database
 import com.example.todoapp.databinding.ActivityShowBinding
 
 class ShowActivity : AppCompatActivity() {
