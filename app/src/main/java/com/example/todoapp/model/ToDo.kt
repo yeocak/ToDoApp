@@ -5,11 +5,8 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class ToDo(
-
     var title: String,
-
     var comment: String,
-
     val listId: Int,
 
     @PrimaryKey(autoGenerate = true)

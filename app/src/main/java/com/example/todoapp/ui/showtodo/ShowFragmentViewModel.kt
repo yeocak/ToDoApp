@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.todoapp.database.ToDoDatabase
 import com.example.todoapp.model.ToDo
-import com.example.todoapp.utils.Database
+import com.example.todoapp.utils.Repository
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -37,19 +37,24 @@ class ShowFragmentViewModel : ViewModel() {
     }
 
     private fun updateChanged() {
+        // If some UI element changes, changed becomes true
+
         changed.value = changedCheck || changedExp || changedTitle
     }
 
     fun setDatabaseToDo(newTitle: String, newExp: String, newChecked: Boolean, position: Int, context: Context) {
-        val current = Database.getCurrentList().list[position]
+        // This is for update to room database
+        val current = Repository.getCurrentList().list[position]
 
-        Database.todoLists[Database.position].list[position].apply {
+        // Change Repository for current app
+        Repository.todoLists[Repository.position].list[position].apply {
             comment = newExp
             title = newTitle
             checked = newChecked
         }
 
         GlobalScope.launch {
+            // Room database update sequence
             val instance = ToDoDatabase.getInstance(context)
             val new = ToDo(
                 newTitle,
@@ -63,8 +68,9 @@ class ShowFragmentViewModel : ViewModel() {
     }
 
     fun deleteDatabaseToDo(position: Int, context: Context) {
-        val current = Database.getCurrentList().list[position]
-        Database.todoLists[Database.position].list.removeAt(position)
+        // Delete to-do from room database
+        val current = Repository.getCurrentList().list[position]
+        Repository.todoLists[Repository.position].list.removeAt(position)
 
         GlobalScope.launch {
             val instance = ToDoDatabase.getInstance(context)

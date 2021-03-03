@@ -21,6 +21,7 @@ class ShowAdapter(
     }
 
     companion object{
+        // This is for change fragments ui via selected to-do index
         var currentShowPosition = -1
     }
 

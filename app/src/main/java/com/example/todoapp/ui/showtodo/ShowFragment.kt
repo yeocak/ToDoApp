@@ -12,7 +12,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.todoapp.databinding.FragmentShowBinding
-import com.example.todoapp.utils.Database
+import com.example.todoapp.utils.Repository
 import com.example.todoapp.model.ToDo
 import com.example.todoapp.ui.mainmenu.MainActivity
 
@@ -49,7 +49,7 @@ class ShowFragment : Fragment() {
 
         // Taking current to do with position from database
         position = ShowAdapter.currentShowPosition
-        currentToDo = Database.getCurrentList().list[position]
+        currentToDo = Repository.getCurrentList().list[position]
 
         setFields()
 

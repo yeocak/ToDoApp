@@ -10,6 +10,8 @@ import com.example.todoapp.model.ToDoList
 @Database(entities = [ToDo::class, ToDoList::class], version = 1)
 abstract class ToDoDatabase : RoomDatabase() {
 
+    // To-Do Database for both Daos
+
     abstract val toDoDao: ToDoDao
     abstract val toDoListDao: ToDoListDao
 

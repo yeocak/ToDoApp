@@ -1,5 +1,6 @@
 package com.example.todoapp.ui.mainmenu
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -8,7 +9,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.todoapp.R
 import com.example.todoapp.database.ToDoDatabase
 import com.example.todoapp.databinding.ActivityMainBinding
-import com.example.todoapp.utils.Database
+import com.example.todoapp.utils.Repository
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.Main
 
@@ -24,17 +25,20 @@ class MainActivity : AppCompatActivity() {
 
         CoroutineScope(Main).launch {
             withContext(Dispatchers.Default) {
-                // Taking all To Dos via Room Database
+                // Taking all To Dos via Room Repository
                 val instance = ToDoDatabase.getInstance(this@MainActivity)
                 val todoRespository = instance.toDoDao
                 val takedLists = instance.toDoListDao.takeListIds()
 
-                Database.todoLists.addAll(takedLists)
+                Repository.todoLists.addAll(takedLists)
                 for (a in takedLists.indices) {
                     val newTodos = todoRespository.selectToDo(takedLists[a].uid)
                     takedLists[a].list.addAll(newTodos)
                 }
             }
+
+            val preference = getSharedPreferences("position", MODE_PRIVATE)
+            Repository.position = preference.getInt("position", 0)
 
             withContext(Main){
                 setNavigate()

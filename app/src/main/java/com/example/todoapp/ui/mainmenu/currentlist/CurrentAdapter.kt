@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.R
 import com.example.todoapp.database.ToDoDatabase
-import com.example.todoapp.utils.Database
+import com.example.todoapp.utils.Repository
 import com.example.todoapp.databinding.SingleTodoBlockBinding
 import com.example.todoapp.model.ToDo
 import com.example.todoapp.ui.showtodo.ShowActivity
@@ -36,21 +36,25 @@ class CurrentAdapter(
     }
 
     override fun onBindViewHolder(holder: VHCurrentList, position: Int) {
+        // This if for last invisible element
 
-        if (position != Database.todoLists[Database.position].list.size) {
-            val current = Database.getCurrentList().list[position]
-            Log.d("Testing", current.uid.toString())
+        if (position != Repository.todoLists[Repository.position].list.size) {
+            val current = Repository.getCurrentList().list[position]
 
             holder.binding.apply {
+                // Setting UI elements
+
                 layoutCurrent.visibility = VISIBLE
                 tvSingleTodoTitle.text = current.title
                 tvSingleTodoComment.text = current.comment
                 cbSingleTodoChecked.isChecked = current.checked
 
                 cbSingleTodoChecked.setOnCheckedChangeListener { _, isChecked ->
-                    Database.todoLists[Database.position].list[position].checked = isChecked
+                    Repository.todoLists[Repository.position].list[position].checked = isChecked
 
                     GlobalScope.launch {
+                        // Update via room database
+
                         val instance = ToDoDatabase.getInstance(context)
                         val updateToDo = ToDo(
                             current.title,
@@ -59,8 +63,6 @@ class CurrentAdapter(
                             current.uid,
                             isChecked
                         )
-
-                        Log.d("Testing",updateToDo.toString())
 
                         instance.toDoDao.updateToDo(updateToDo)
                     }
@@ -82,7 +84,7 @@ class CurrentAdapter(
 
     override fun getItemCount(): Int {
         // +1 is for bottom space
-        return Database.todoLists[Database.position].list.size + 1
+        return Repository.todoLists[Repository.position].list.size + 1
     }
 
 }

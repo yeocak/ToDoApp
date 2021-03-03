@@ -5,9 +5,10 @@ import com.example.todoapp.model.ToDo
 
 @Dao
 interface ToDoDao {
+    // Dao for To-Do list
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addToDo(new: ToDo): Long
+    suspend fun insertToDo(new: ToDo): Long
 
     @Delete
     suspend fun deleteToDo(todo: ToDo)

@@ -16,6 +16,8 @@ class ListsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // This is for AddFragment to specify current fragment
         AddFragment.isInCurrent = false
     }
 
@@ -31,6 +33,8 @@ class ListsFragment : Fragment() {
     }
 
     private fun setRV(){
+        // Set adapter of recyclerview
+
         val adapter = ListsAdapter(activity as MainActivity)
 
         binding.rvLists.adapter = adapter

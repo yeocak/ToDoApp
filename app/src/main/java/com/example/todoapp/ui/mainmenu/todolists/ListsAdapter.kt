@@ -6,10 +6,11 @@ import android.view.View
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.R
 import com.example.todoapp.database.ToDoDatabase
-import com.example.todoapp.utils.Database
+import com.example.todoapp.utils.Repository
 import com.example.todoapp.databinding.SingleListBlockBinding
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -31,23 +32,33 @@ class ListsAdapter(val contexting: Context) : RecyclerView.Adapter<ListsAdapter.
     }
 
     override fun onBindViewHolder(holder: VHList, position: Int) {
+        // This if is for invisibility of last bottom space
 
-        if (position != Database.todoLists.size) {
-            val current = Database.todoLists[position]
+        if (position != Repository.todoLists.size) {
+            val current = Repository.todoLists[position]
 
             holder.binding.apply {
+                // Set UI elements
                 layoutList.visibility = VISIBLE
                 btnSingleListSelect.text = current.name
 
                 btnSingleListSelect.setOnClickListener {
-                    Database.position = position
+                    // Selecting list
+                    Repository.position = position
                     notifyDataSetChanged()
+
+                    // This SharedPreferences for selected list index
+                    val preference = contexting.getSharedPreferences("position",
+                        AppCompatActivity.MODE_PRIVATE
+                    )
+                    preference.edit().putInt("position", position).apply()
                 }
 
                 btnSingleListDelete.setOnClickListener {
-                    Database.todoLists.removeAt(position)
-                    if (Database.position != 0) {
-                        Database.position -= 1
+                    // Delete a list
+                    Repository.todoLists.removeAt(position)
+                    if (Repository.position != 0) {
+                        Repository.position -= 1
                     }
 
                     GlobalScope.launch {
@@ -61,7 +72,8 @@ class ListsAdapter(val contexting: Context) : RecyclerView.Adapter<ListsAdapter.
                     notifyDataSetChanged()
                 }
 
-                btnSingleListSelect.isEnabled = (Database.position != position)
+                // This enable is for marking the selected list
+                btnSingleListSelect.isEnabled = (Repository.position != position)
             }
         } else {
             holder.binding.layoutList.visibility = INVISIBLE
@@ -71,7 +83,7 @@ class ListsAdapter(val contexting: Context) : RecyclerView.Adapter<ListsAdapter.
 
     override fun getItemCount(): Int {
         // +1 is for bottom space
-        return Database.todoLists.size + 1
+        return Repository.todoLists.size + 1
     }
 
 }

@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation.findNavController
 import com.example.todoapp.R
 import com.example.todoapp.database.ToDoDatabase
-import com.example.todoapp.utils.Database
+import com.example.todoapp.utils.Repository
 import com.example.todoapp.model.ToDo
 import com.example.todoapp.model.ToDoList
 import com.example.todoapp.databinding.FragmentAddBinding
@@ -54,11 +54,13 @@ class AddFragment : Fragment() {
     }
 
     private fun setFields() {
+        // Setting edit text etc. from Repository
+
         if (isInCurrent) {
-            binding.tvAddTitle.text = Database.getCurrentList().name
+            binding.tvAddTitle.text = Repository.getCurrentList().name
         } else {
-            binding.tvAddTitle.text = "Add new To Do List"
-            binding.tvAddToToDoTitle.text = "List Name"
+            binding.tvAddTitle.text = getString(R.string.text_view_add_list)
+            binding.tvAddToToDoTitle.text = getString(R.string.text_view_list_name)
             binding.tvAddToDoExp.visibility = INVISIBLE
             binding.etAddExp.visibility = INVISIBLE
         }
@@ -78,12 +80,14 @@ class AddFragment : Fragment() {
     }
 
     private fun addToDo() {
+        // Adding new to do
+
         var uid: Long
 
         val newToDo = ToDo(
             binding.etAddTitle.text.toString(),
             binding.etAddExp.text.toString(),
-            Database.getCurrentList().uid
+            Repository.getCurrentList().uid
         )
 
         GlobalScope.launch {
@@ -91,17 +95,19 @@ class AddFragment : Fragment() {
 
             val dao = ToDoDatabase.getInstance((activity as MainActivity).application).toDoDao
 
-            uid = dao.addToDo(newToDo)
+            uid = dao.insertToDo(newToDo)
 
             newToDo.uid = uid
 
-            Database.todoLists[Database.position].list.add(newToDo)
+            Repository.todoLists[Repository.position].list.add(newToDo)
         }
     }
 
     private fun addList() {
-        val newId = if (Database.todoLists.size > 0) {
-            Database.todoLists[Database.todoLists.lastIndex].uid + 1
+        // Adding new to-do list
+
+        val newId = if (Repository.todoLists.size > 0) {
+            Repository.todoLists[Repository.todoLists.lastIndex].uid + 1
         } else {
             0
         }
@@ -117,7 +123,7 @@ class AddFragment : Fragment() {
             dao.insertList(newList)
         }
 
-        Database.todoLists.add(newList)
+        Repository.todoLists.add(newList)
     }
 
     private fun clearAreas() {

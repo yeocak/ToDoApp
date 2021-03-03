@@ -2,7 +2,7 @@ package com.example.todoapp.ui.showtodo
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.todoapp.utils.Database
+import com.example.todoapp.utils.Repository
 import com.example.todoapp.databinding.ActivityShowBinding
 
 class ShowActivity : AppCompatActivity() {
@@ -15,10 +15,12 @@ class ShowActivity : AppCompatActivity() {
         binding = ActivityShowBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Get index of selected to-do
         currentPosition = intent.getIntExtra("current", -1)
 
+        // Set adapter of ViewPager
         val adapter = ShowAdapter(
-            Database.getCurrentList().list.size,
+            Repository.getCurrentList().list.size,
             supportFragmentManager,
             lifecycle
         )
